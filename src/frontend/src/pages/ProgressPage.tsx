@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
 import { useAgeGroup } from '../state/AgeGroupContext';
 import { useProgress } from '../hooks/useProgress';
@@ -8,14 +8,13 @@ import StarsRow from '../components/progress/StarsRow';
 import Mascot from '../components/mascot/Mascot';
 import PageShell from '../components/layout/PageShell';
 import PageHeader from '../components/layout/PageHeader';
-import { GameType } from '../backend';
+import StickerBoard from '../components/progress/StickerBoard';
 
 export default function ProgressPage() {
   const { selectedAgeGroup } = useAgeGroup();
   const { getProgress } = useProgress();
   const { data: backendProgress } = useGetProgressSummary();
   const { getEarnedStickers } = useStickerRewards();
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   const activities = [
     { type: 'addition', title: 'Addition', emoji: '➕' },
@@ -30,10 +29,6 @@ export default function ProgressPage() {
 
   const earnedStickers = getEarnedStickers();
 
-  const handleImageError = (stickerId: string) => {
-    setImageErrors(prev => ({ ...prev, [stickerId]: true }));
-  };
-
   return (
     <PageShell maxWidth="5xl">
       <PageHeader
@@ -45,9 +40,9 @@ export default function ProgressPage() {
 
       {selectedAgeGroup ? (
         <div className="space-y-10">
-          <Card className="border-4 border-primary/20 shadow-kid">
+          <Card className="border-4 border-primary/20 shadow-kid bg-card">
             <CardHeader>
-              <CardTitle className="text-4xl md:text-5xl text-center text-foreground">Total Stars Earned</CardTitle>
+              <CardTitle className="text-4xl md:text-5xl text-center">Total Stars Earned</CardTitle>
             </CardHeader>
             <CardContent className="py-8">
               <div className="text-center space-y-6">
@@ -58,38 +53,14 @@ export default function ProgressPage() {
           </Card>
 
           {earnedStickers.length > 0 && (
-            <Card className="border-4 border-secondary/20 shadow-kid">
+            <Card className="border-4 border-secondary/20 shadow-kid bg-card">
               <CardHeader>
-                <CardTitle className="text-4xl md:text-5xl text-center text-foreground">
+                <CardTitle className="text-4xl md:text-5xl text-center">
                   🎁 Sticker Collection
                 </CardTitle>
               </CardHeader>
               <CardContent className="py-8">
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
-                  {earnedStickers.map((sticker, index) => (
-                    <div
-                      key={`${sticker.id}-${index}`}
-                      className="flex flex-col items-center justify-center bg-muted rounded-3xl p-4 border-2 border-primary/20 hover:scale-110 transition-transform"
-                    >
-                      {!imageErrors[`${sticker.id}-${index}`] ? (
-                        <img
-                          src={sticker.imagePath}
-                          alt={sticker.name}
-                          className="w-20 h-20"
-                          onError={() => handleImageError(`${sticker.id}-${index}`)}
-                        />
-                      ) : (
-                        <div className="text-5xl">{sticker.emoji}</div>
-                      )}
-                      <p className="text-xs text-center mt-2 text-foreground font-medium">
-                        {sticker.name}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <p className="text-center text-xl md:text-2xl text-foreground mt-6">
-                  Total Stickers: {earnedStickers.length}
-                </p>
+                <StickerBoard earnedStickers={earnedStickers} maxSlots={12} />
               </CardContent>
             </Card>
           )}
@@ -98,9 +69,9 @@ export default function ProgressPage() {
             {activities.map((activity) => {
               const progress = getProgress(selectedAgeGroup, activity.type);
               return (
-                <Card key={activity.type} className="border-4 border-primary/20 shadow-kid">
+                <Card key={activity.type} className="border-4 border-primary/20 shadow-kid bg-card">
                   <CardHeader>
-                    <CardTitle className="text-3xl md:text-4xl flex items-center gap-4 text-foreground">
+                    <CardTitle className="text-3xl md:text-4xl flex items-center gap-4">
                       <span className="text-5xl">{activity.emoji}</span>
                       {activity.title}
                     </CardTitle>
@@ -110,11 +81,11 @@ export default function ProgressPage() {
                     <div className="grid grid-cols-2 gap-6 text-center">
                       <div className="bg-success/10 rounded-2xl p-6 border-2 border-success">
                         <p className="text-5xl font-bold text-success">{progress.bestScore}</p>
-                        <p className="text-base text-foreground mt-2">Best Score</p>
+                        <p className="text-base font-normal mt-2">Best Score</p>
                       </div>
                       <div className="bg-accent/10 rounded-2xl p-6 border-2 border-accent">
                         <p className="text-5xl font-bold text-accent">{progress.attempts}</p>
-                        <p className="text-base text-foreground mt-2">Times Played</p>
+                        <p className="text-base font-normal mt-2">Times Played</p>
                       </div>
                     </div>
                   </CardContent>
@@ -124,18 +95,18 @@ export default function ProgressPage() {
           </div>
 
           {backendProgress && backendProgress.length > 0 && (
-            <Card className="border-4 border-accent/20 shadow-kid">
+            <Card className="border-4 border-accent/20 shadow-kid bg-card">
               <CardHeader>
-                <CardTitle className="text-3xl md:text-4xl text-foreground">Cloud Progress</CardTitle>
+                <CardTitle className="text-3xl md:text-4xl">Cloud Progress</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-xl md:text-2xl text-foreground">
+                <p className="text-xl md:text-2xl font-normal">
                   Your progress is saved to the cloud! 🌟
                 </p>
                 <div className="space-y-3">
                   {backendProgress.map((summary, index) => (
                     <div key={index} className="bg-muted rounded-2xl p-6">
-                      <p className="text-lg md:text-xl text-foreground">
+                      <p className="text-lg md:text-xl font-normal">
                         Total Score: {Number(summary.score)} | Attempts: {Number(summary.attempts)} | Stars: {Number(summary.stars)}
                       </p>
                     </div>
@@ -146,9 +117,9 @@ export default function ProgressPage() {
           )}
         </div>
       ) : (
-        <Card className="border-4 border-warning shadow-kid">
+        <Card className="border-4 border-warning shadow-kid bg-card">
           <CardContent className="pt-8 text-center">
-            <p className="text-2xl md:text-3xl text-foreground">Please select your age group first!</p>
+            <p className="text-2xl md:text-3xl font-normal">Please select your age group first!</p>
           </CardContent>
         </Card>
       )}

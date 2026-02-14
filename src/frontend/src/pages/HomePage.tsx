@@ -53,7 +53,13 @@ export default function HomePage() {
       description: 'See your stars and achievements!',
       icon: Trophy,
       color: 'bg-warning',
-      onClick: () => navigate({ to: '/progress' })
+      onClick: () => {
+        if (selectedAgeGroup) {
+          navigate({ to: '/progress' });
+        } else {
+          navigate({ to: '/age-select' });
+        }
+      }
     }
   ];
 
@@ -72,43 +78,45 @@ export default function HomePage() {
           return (
             <Card 
               key={item.title}
-              className="border-4 border-primary/20 shadow-kid hover:shadow-xl transition-all cursor-pointer hover:scale-105"
+              className="border-4 border-primary/20 shadow-kid hover:shadow-xl transition-all cursor-pointer hover:scale-105 bg-card"
               onClick={item.onClick}
             >
               <CardHeader className="space-y-6">
                 <div className={`${item.color} w-20 h-20 rounded-3xl flex items-center justify-center`}>
                   <Icon className="w-10 h-10 text-white" />
                 </div>
-                <CardTitle className="text-3xl md:text-4xl text-foreground">{item.title}</CardTitle>
-                <CardDescription className="text-xl md:text-2xl text-foreground">{item.description}</CardDescription>
+                <CardTitle className="text-3xl md:text-4xl">{item.title}</CardTitle>
+                <CardDescription className="text-xl md:text-2xl font-normal">{item.description}</CardDescription>
               </CardHeader>
             </Card>
           );
         })}
       </div>
 
-      {!selectedAgeGroup && (
-        <Card className="border-4 border-warning/40 shadow-kid bg-card">
-          <CardContent className="pt-8">
-            <div className="flex items-center gap-6">
-              <span className="text-5xl">👋</span>
-              <div className="flex-1">
-                <p className="text-2xl font-bold mb-3 text-foreground">First time here?</p>
-                <p className="text-xl text-foreground mb-6">
-                  Let's pick your age group to get started!
-                </p>
-                <Button 
-                  size="lg" 
-                  onClick={() => navigate({ to: '/age-select' })}
-                  className="text-2xl h-14 px-8"
-                >
-                  Choose Age Group
-                </Button>
-              </div>
+      <Card className="border-4 border-warning/40 shadow-kid bg-card">
+        <CardContent className="pt-8">
+          <div className="flex items-center gap-6">
+            <span className="text-5xl">👋</span>
+            <div className="flex-1">
+              <p className="text-2xl font-bold mb-3">
+                {selectedAgeGroup ? 'Want to change your age group?' : 'First time here?'}
+              </p>
+              <p className="text-xl font-normal mb-6">
+                {selectedAgeGroup 
+                  ? 'You can pick a different age group anytime!' 
+                  : "Let's pick your age group to get started!"}
+              </p>
+              <Button 
+                size="lg" 
+                onClick={() => navigate({ to: '/age-select' })}
+                className="text-2xl h-14 px-8"
+              >
+                {selectedAgeGroup ? 'Change Age Group' : 'Choose Age Group'}
+              </Button>
             </div>
-          </CardContent>
-        </Card>
-      )}
+          </div>
+        </CardContent>
+      </Card>
     </PageShell>
   );
 }

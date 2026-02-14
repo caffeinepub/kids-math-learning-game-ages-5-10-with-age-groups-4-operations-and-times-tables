@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 type MascotState = 'idle' | 'cheer' | 'encourage';
 
@@ -8,6 +8,8 @@ interface MascotProps {
 }
 
 export default function Mascot({ state = 'idle', className = '' }: MascotProps) {
+  const [imageError, setImageError] = useState(false);
+
   const getMascotImage = () => {
     switch (state) {
       case 'cheer':
@@ -30,12 +32,34 @@ export default function Mascot({ state = 'idle', className = '' }: MascotProps) 
     }
   };
 
+  const getFallbackEmoji = () => {
+    switch (state) {
+      case 'cheer':
+        return '🎉';
+      case 'encourage':
+        return '💪';
+      default:
+        return '🤖';
+    }
+  };
+
+  if (imageError) {
+    return (
+      <div className={`${className} ${getAnimation()} flex items-center justify-center`}>
+        <div className="text-9xl" role="img" aria-label="Math mascot">
+          {getFallbackEmoji()}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`${className} ${getAnimation()}`}>
       <img 
         src={getMascotImage()} 
         alt="Math mascot" 
         className="w-full h-full object-contain drop-shadow-2xl"
+        onError={() => setImageError(true)}
       />
     </div>
   );

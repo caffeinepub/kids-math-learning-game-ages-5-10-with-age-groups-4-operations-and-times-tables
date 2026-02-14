@@ -30,18 +30,18 @@ export default function AgeSelectPage() {
         {AGE_GROUPS.map((group) => (
           <Card
             key={group.key}
-            className="border-4 border-primary/20 shadow-kid hover:shadow-xl transition-all cursor-pointer hover:scale-105"
+            className="border-4 border-primary/20 shadow-kid hover:shadow-xl transition-all cursor-pointer hover:scale-105 bg-card"
             onClick={() => handleAgeGroupSelect(group.key)}
           >
             <CardHeader className="space-y-6">
               <div className="text-7xl text-center">{group.emoji}</div>
-              <CardTitle className="text-3xl md:text-4xl text-center text-foreground">{group.label}</CardTitle>
-              <CardDescription className="text-xl md:text-2xl text-center text-foreground">
+              <CardTitle className="text-3xl md:text-4xl text-center">{group.label}</CardTitle>
+              <CardDescription className="text-xl md:text-2xl text-center font-normal">
                 {group.ageRange}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <p className="text-lg md:text-xl text-center text-foreground">
+              <p className="text-lg md:text-xl text-center font-normal">
                 {group.description}
               </p>
               <Button 

@@ -20,7 +20,7 @@ export default function PageHeader({ title, subtitle, mascot, emoji }: PageHeade
           {title} {emoji}
         </h1>
         {subtitle && (
-          <p className="text-2xl md:text-3xl text-foreground">
+          <p className="text-2xl md:text-3xl text-muted-foreground font-normal">
             {subtitle}
           </p>
         )}

@@ -1,197 +1,205 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Difficulty selection + sticker rewards chart for Operations and Times Tables Practice",
+  "title": "Restore age selection, pastel theme cohesion, animated mascot, and sticker-board rewards UI",
   "requirements": [
     {
-      "id": "REQ-17",
-      "summary": "Add a 4-option difficulty selector for Operations rounds, show it during gameplay, and include it in stored round results for Round Summary.",
+      "id": "REQ-1",
+      "summary": "Ensure age-group selection is always accessible and reliably enforced via routing guards, with all age cards rendered and selection persisted.",
       "acceptanceCriteria": [
-        "On the Operations flow (starting from the activity selection), the user can choose exactly one difficulty: Easy, Medium, Hard, or Math Wizard before the round begins.",
-        "During the round (PlayRoundPage), the UI shows the selected difficulty label in a readable way.",
-        "The stored round result (sessionStorage key \"math-game-result\") includes the selected difficulty so the Round Summary can read it."
+        "When no age group is selected, the app provides a clear way to reach age-group selection and successfully navigates to /age-select.",
+        "/age-select renders all configured age-group options as selectable cards and selecting one navigates to /activity-select.",
+        "Age-group selection persists across page reloads (existing localStorage-based behavior remains working)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/game/types.ts",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Extend RoundResult to include a frontend difficulty field (supporting Easy/Medium/Hard/Math Wizard) so it can be persisted to sessionStorage and read by RoundSummaryPage."
+          "description": "Harden age-group guard coverage by adding a Progress route guard (and any other routes that should require an age group) that reliably redirects to /age-select when selectedAgeGroup is missing."
         },
         {
-          "path": "frontend/src/game/difficulty.ts",
-          "operation": "create",
-          "description": "Create shared difficulty definitions (4 options, display labels, and a safe mapping to backend Difficulty for authenticated submissions where needed)."
+          "path": "frontend/src/components/nav/MainNav.tsx",
+          "operation": "modify",
+          "description": "Add a persistent navigation action to reach /age-select so children can always access age-group selection from anywhere. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/components/game/DifficultySelector.tsx",
-          "operation": "create",
-          "description": "Add a reusable difficulty selector UI for choosing exactly one of four options; use shadcn-ui form controls (e.g., RadioGroup / Button variants) for consistent styling. Verify the component's usage instructions before implementing."
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Ensure the Home flow includes an always-visible, clear call-to-action to change/pick an age group (not only on first-time state), navigating to /age-select. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/AgeSelectPage.tsx",
+          "operation": "modify",
+          "description": "Confirm the Age Select screen consistently renders all AGE_GROUPS as full selectable cards and that selection triggers persistence via AgeGroupContext then navigates to /activity-select. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/state/AgeGroupContext.tsx",
+          "operation": "modify",
+          "description": "Make localStorage persistence more defensive (e.g., validate stored value against known AgeGroupKey values and handle invalid/unknown values by treating as null) so guards reliably route to /age-select when needed."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Re-apply the soft pastel theme across core screens and fix unintended global bold typography while keeping high-contrast legible text.",
+      "acceptanceCriteria": [
+        "Core screens (Home, Age Select, Activity Select, Play, Round Summary, Progress) use the pastel theme colors from the global theme tokens (background/primary/secondary/accent/etc.).",
+        "Default paragraph/body text is not rendered as overly bold; bold is reserved for intentional emphasis (e.g., key numbers like score/stars).",
+        "No visual regressions in readability: text remains dark/high-contrast against the pastel backgrounds."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Adjust base typography defaults to prevent an app-wide 'bold' regression (e.g., ensure body copy defaults to normal font-weight) while preserving theme tokens and high-contrast text on pastel backgrounds."
+        },
+        {
+          "path": "frontend/src/components/layout/PageHeader.tsx",
+          "operation": "modify",
+          "description": "Refine header typography so only titles are bold for emphasis, while subtitles/body copy remain normal/medium weight and readable against the pastel theme. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Align Home page card and helper text styling with pastel theme tokens and non-bold body text defaults; keep bold only for intentional emphasis. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/AgeSelectPage.tsx",
+          "operation": "modify",
+          "description": "Align Age Select cards (titles/descriptions/buttons) to pastel theme tokens and avoid overly-bold body copy while keeping headings prominent. Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/pages/ActivitySelectPage.tsx",
           "operation": "modify",
-          "description": "Wire the difficulty selector into the Operations start flow (before navigating to /play/$gameType), persist the chosen difficulty in sessionStorage for the upcoming round, and ensure exactly one difficulty is selected."
-        },
-        {
-          "path": "frontend/src/pages/play/PlayRoundPage.tsx",
-          "operation": "modify",
-          "description": "Read selected difficulty from sessionStorage at round start, show the selected difficulty label during gameplay, and include difficulty in the sessionStorage \"math-game-result\" payload."
+          "description": "Align Activity Select card and description typography to the restored pastel theme, ensuring descriptions are not overly bold and remain high-contrast/legible. Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/pages/play/RoundSummaryPage.tsx",
           "operation": "modify",
-          "description": "Read and display the selected difficulty from the stored round result; ensure the summary remains functional when the result includes the new difficulty field."
+          "description": "Ensure Round Summary uses pastel token backgrounds/borders consistently (especially the rewards moment) and reserves bold for key numbers and celebratory headings only. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ProgressPage.tsx",
+          "operation": "modify",
+          "description": "Ensure Progress uses the pastel theme tokens consistently and avoids bold body copy except for key numbers (e.g., total stars). Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-18",
-      "summary": "Apply difficulty to Operations question generation and round configuration across addition/subtraction/multiplication/division while respecting age-group ranges.",
+      "id": "REQ-3",
+      "summary": "Restore mascot rendering and visible animations on key screens with graceful fallback when assets are missing.",
       "acceptanceCriteria": [
-        "For the same age group and game type, selecting different difficulties produces measurably different question sets (e.g., wider operand ranges and/or more questions for harder difficulties).",
-        "The difficulty logic applies to addition, subtraction, multiplication, and division question generation (no operation is left unchanged).",
-        "No crashes occur when starting a round with any difficulty across all age groups."
+        "Mascot images referenced by the Mascot component load correctly from static assets and display on Home, Age Select, Progress, and Round Summary pages.",
+        "Mascot animation classes used by the Mascot component produce visible animation (float/cheer/wiggle) in the UI.",
+        "If an expected mascot image asset is missing, the UI fails gracefully (e.g., shows an accessible placeholder) rather than appearing blank."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/game/questionGenerator.ts",
+          "path": "frontend/src/components/mascot/Mascot.tsx",
           "operation": "modify",
-          "description": "Update question generation to accept frontend difficulty and adjust configuration (e.g., question count and operand ranges) in a consistent way for all four operations while keeping the age-group base ranges as the baseline."
+          "description": "Add robust image loading/fallback handling (onError -> accessible placeholder) while preserving existing animation class behavior for idle float, cheer bounce-in, and encourage wiggle. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/pages/play/PlayRoundPage.tsx",
+          "path": "frontend/src/pages/HomePage.tsx",
           "operation": "modify",
-          "description": "Pass the selected difficulty into generateQuestions and use difficulty-adjusted question count/configuration when creating the round."
+          "description": "Confirm Home continues to render the Mascot component (idle) and that layout/styling changes do not hide or clip animations. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/game/roundEngine.ts",
+          "path": "frontend/src/pages/AgeSelectPage.tsx",
           "operation": "modify",
-          "description": "Ensure round result creation remains compatible with variable question counts and includes any new result metadata needed by the updated flow."
+          "description": "Confirm Age Select continues to render the Mascot component (idle) and that layout/styling changes do not hide or clip animations. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ProgressPage.tsx",
+          "operation": "modify",
+          "description": "Confirm Progress continues to render the Mascot component and that layout/styling changes do not hide or clip animations. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/play/RoundSummaryPage.tsx",
+          "operation": "modify",
+          "description": "Confirm Round Summary continues to render the Mascot component (cheer) and that layout/styling changes do not hide or clip animations. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-19",
-      "summary": "Add the same 4-option difficulty selector to Times Tables Practice and apply it to practice session configuration; show difficulty during practice and on completion.",
+      "id": "REQ-4",
+      "summary": "Ensure one sticker is awarded per completed round at Round Summary and add a dedicated sticker-board view in Progress with persisted, resilient rendering.",
       "acceptanceCriteria": [
-        "Times Tables Practice includes a difficulty selector with exactly: Easy, Medium, Hard, Math Wizard.",
-        "Starting practice uses the selected difficulty to adjust the session (e.g., question count and/or other difficulty-related settings).",
-        "While practicing, the UI indicates the selected difficulty.",
-        "After practice completes, the completion summary remains functional and still shows stars/score as before."
+        "Completing an operations round and reaching the Round Summary screen awards exactly one sticker for that completion and shows the earned sticker on the Round Summary screen.",
+        "The Progress area includes a sticker-board UI that displays earned stickers placed into board slots in earned order (with empty slots visible when not yet earned).",
+        "Sticker rewards persist across reloads for anonymous users via localStorage (no loss of previously earned stickers).",
+        "If a sticker image fails to load, the sticker-board view shows a fallback (e.g., the sticker emoji) instead of a broken image icon."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useTimesTablesPractice.ts",
-          "operation": "modify",
-          "description": "Persist and expose the selected Times Tables Practice difficulty in localStorage alongside existing practice state (without breaking existing stored state reads)."
-        },
-        {
-          "path": "frontend/src/pages/times-tables/TimesTablesPracticeView.tsx",
-          "operation": "modify",
-          "description": "Add difficulty selector UI (reuse DifficultySelector), require exactly one difficulty before starting, adjust practice session configuration (e.g., number of questions and/or question selection rules) by difficulty, and show the selected difficulty during practice and on completion."
-        },
-        {
-          "path": "frontend/src/game/timesTables.ts",
-          "operation": "modify",
-          "description": "Add optional difficulty-aware controls for times tables question generation (e.g., allow caller to request different question counts and/or distribution) while keeping existing defaults working."
-        },
-        {
-          "path": "frontend/src/components/game/DifficultySelector.tsx",
-          "operation": "modify",
-          "description": "Ensure DifficultySelector is flexible enough to be reused in Times Tables Practice (layout/size props as needed) while keeping the same four choices. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-20",
-      "summary": "Implement sticker rewards awarded on Operations Round Summary arrival; persist for anonymous users via localStorage and show a Sticker Chart section on Progress page without breaking existing progress UI.",
-      "acceptanceCriteria": [
-        "When the Round Summary screen is reached for an Operations round, the app awards exactly one sticker reward for that completion event.",
-        "Sticker rewards persist after page refresh/reopen for anonymous users using localStorage.",
-        "A new \"Sticker Chart\" section is visible on the Progress page, showing earned stickers in a simple grid/chart layout.",
-        "The existing stars/attempts/best-score progress display continues to work as before."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/rewards/stickers.ts",
+          "path": "frontend/public/assets/generated/sticker-board-bg.dim_1200x800.png",
           "operation": "create",
-          "description": "Define sticker reward catalog (names + static asset paths) and deterministic selection logic for awarding exactly one sticker per Operations completion."
+          "description": "Add the generated sticker board background illustration as a static asset at frontend/public/assets/generated/sticker-board-bg.dim_1200x800.png (must be served statically; do not route through backend)."
         },
         {
           "path": "frontend/src/hooks/useStickerRewards.ts",
-          "operation": "create",
-          "description": "Create a hook to award and read sticker rewards, persisting anonymous rewards in localStorage; keep behavior compatible with authenticated users by optionally syncing via existing backend capabilities where available (without breaking cloud progress)."
-        },
-        {
-          "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Add react-query hooks/mutations for reading/updating authenticated sticker rewards using existing backend actor functions (e.g., getEarnedRewards/addEarnedReward), while preserving existing progress-related queries/mutations."
+          "description": "Harden localStorage-backed sticker persistence and awarding logic (ensure awardSticker is safe against stale state and always increments exactly once per completion flow) while keeping anonymous-user persistence."
         },
         {
           "path": "frontend/src/pages/play/RoundSummaryPage.tsx",
           "operation": "modify",
-          "description": "On Round Summary load for an Operations round, award exactly one sticker reward (one-time per completion event), show a small 'reward moment' section (sticker image + name), and keep existing stars/results UI working."
+          "description": "Ensure the rewards moment on Round Summary shows the newly earned sticker and that awarding occurs exactly once per round completion (defined as reaching Round Summary), with graceful image fallback already present. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/progress/StickerBoard.tsx",
+          "operation": "create",
+          "description": "Create a StickerBoard component that renders a board-style presentation using the static background (frontend/public/assets/generated/sticker-board-bg.dim_1200x800.png), places earned stickers into slots in order, shows empty slots for unearned, and uses emoji fallback on image error. Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/pages/ProgressPage.tsx",
           "operation": "modify",
-          "description": "Add a new 'Sticker Chart' section showing earned stickers in a simple grid; ensure existing stars/attempts/best-score and Cloud Progress sections remain unchanged and functional."
+          "description": "Replace the plain sticker grid/list presentation with the StickerBoard component within the Progress area, ensuring earned-order placement and visible empty slots while preserving localStorage persistence behavior. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-22",
-      "summary": "Add generated sticker images as static assets and use them in the rewards UI with a no-crash fallback if images fail to load.",
+      "id": "REQ-5",
+      "summary": "Apply a single cohesive, kid-friendly visual theme pass (soft pastels, rounded shapes, playful typography) consistently across Home, Age Select, Round Summary rewards moment, and Progress sticker board.",
       "acceptanceCriteria": [
-        "Sticker images are present under frontend/public/assets/generated with the exact filenames specified in imageRequirements.required.",
-        "Rewards UI uses these static image assets (not fetched through the backend).",
-        "If an image fails to load, the UI still renders with a simple fallback (e.g., showing the sticker name as text) and does not crash."
+        "The same design language (colors, rounded corners, shadows, spacing) is consistently applied across the key screens.",
+        "No screen appears to use a mismatched/unstyled fallback look compared to the rest of the app."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/generated/sticker-star.dim_256x256.png",
-          "operation": "create",
-          "description": "Add generated static sticker image asset at frontend/public/assets/generated/sticker-star.dim_256x256.png."
-        },
-        {
-          "path": "frontend/public/assets/generated/sticker-rocket.dim_256x256.png",
-          "operation": "create",
-          "description": "Add generated static sticker image asset at frontend/public/assets/generated/sticker-rocket.dim_256x256.png."
-        },
-        {
-          "path": "frontend/public/assets/generated/sticker-dino.dim_256x256.png",
-          "operation": "create",
-          "description": "Add generated static sticker image asset at frontend/public/assets/generated/sticker-dino.dim_256x256.png."
-        },
-        {
-          "path": "frontend/public/assets/generated/sticker-unicorn.dim_256x256.png",
-          "operation": "create",
-          "description": "Add generated static sticker image asset at frontend/public/assets/generated/sticker-unicorn.dim_256x256.png."
-        },
-        {
-          "path": "frontend/public/assets/generated/sticker-wizard-hat.dim_256x256.png",
-          "operation": "create",
-          "description": "Add generated static sticker image asset at frontend/public/assets/generated/sticker-wizard-hat.dim_256x256.png."
-        },
-        {
-          "path": "frontend/public/assets/generated/sticker-trophy.dim_256x256.png",
-          "operation": "create",
-          "description": "Add generated static sticker image asset at frontend/public/assets/generated/sticker-trophy.dim_256x256.png."
-        },
-        {
-          "path": "frontend/src/rewards/stickers.ts",
+          "path": "frontend/src/components/layout/KidLayout.tsx",
           "operation": "modify",
-          "description": "Reference the static sticker assets using the exact workspace paths (frontend/public/assets/generated/*.png) and include metadata needed for UI rendering and text fallback when an image load fails."
+          "description": "Ensure the global page background and container spacing consistently support the pastel theme and do not introduce harsh contrast; keep the static background image usage intact. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Make a cohesive theme pass via global tokens/utilities: reinforce soft pastel feel (without reducing readability), consistent roundedness, and consistent default typography weight across screens."
+        },
+        {
+          "path": "frontend/src/pages/HomePage.tsx",
+          "operation": "modify",
+          "description": "Unify Home screen card styling (rounded corners, borders, shadows, spacing) and typography with the restored theme pass. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/AgeSelectPage.tsx",
+          "operation": "modify",
+          "description": "Unify Age Select card styling (rounded corners, borders, shadows, spacing) and typography with the restored theme pass. Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/pages/play/RoundSummaryPage.tsx",
           "operation": "modify",
-          "description": "Render awarded sticker image from static assets with a safe onError fallback to sticker name text so the UI never crashes on missing/failed images."
+          "description": "Unify the Round Summary rewards moment styling with the theme pass (soft pastel panels, rounded shapes, consistent shadows) while keeping emphasis on key results. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/progress/StickerBoard.tsx",
+          "operation": "modify",
+          "description": "Apply the same visual language (colors, rounded corners, shadows, spacing) to the StickerBoard so it matches other key screens and does not look like an unstyled add-on. Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/pages/ProgressPage.tsx",
           "operation": "modify",
-          "description": "Render sticker chart images from static assets with a safe onError fallback to sticker name text so the UI never crashes on missing/failed images."
+          "description": "Ensure Progress page sections (totals, activities, sticker board) use consistent theme tokens and styling patterns to avoid any mismatched/fallback look. Verify the component's usage instructions before implementing."
         }
       ]
     }

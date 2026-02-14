@@ -1,100 +1,40 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-14T10:22:08.937Z",
-  "summary": "Diff implements frontend difficulty selection and applies it to Operations question generation and Times Tables practice question count. It also adds a localStorage-based sticker reward system with UI on Round Summary and Progress page, plus backend changes adding a Difficulty field to results and new earned-reward APIs. However, several BuildRequest requirements are incomplete: backend does not support the 4th difficulty (“Math Wizard”), sticker assets are not present in the diff, authenticated sticker persistence/fetching is not integrated into the Progress UI, and backend reward/completion tracking lacks ageGroup/gameType association and level-completion recording.",
+  "generatedAt": "2026-02-14T11:33:32.631Z",
+  "summary": "Diff implements age-group routing/guards, restores Age Select cards, applies pastel theme tokens + non-bold defaults, restores Mascot component with animation classes and graceful fallback, and adds a StickerBoard component with slot grid + per-sticker image fallback. However, the required sticker-board background image asset is not present in the diff, and Progress hides the sticker-board entirely when no stickers are earned (conflicts with requirement to show empty slots).",
   "missing_requirements": [
     {
-      "id": "REQ-17",
-      "requirement": "Difficulty selector must offer exactly four options (Easy/Medium/Hard/Math Wizard) before Operations rounds; selected difficulty must be included in round result data and shown during gameplay.",
-      "reason": "Backend difficulty mapping collapses Math Wizard into Hard for authenticated submissions, and backend Difficulty type only supports 3 values. This breaks the requirement that the selected difficulty be included and tracked as one of the four explicit options end-to-end.",
+      "id": "REQ-4",
+      "requirement": "The Progress area includes a sticker-board UI that displays earned stickers placed into board slots in earned order (with empty slots visible when not yet earned).",
+      "reason": "ProgressPage conditionally renders the StickerBoard only when earnedStickers.length > 0, so users with zero stickers will not see the board or empty slots.",
       "evidence": [
-        "frontend/src/game/difficulty.ts",
-        "backend/main.mo",
-        "frontend/src/pages/play/RoundSummaryPage.tsx",
-        "frontend/src/hooks/useQueries.ts"
-      ]
-    },
-    {
-      "id": "REQ-18",
-      "requirement": "Difficulty must meaningfully change gameplay for Operations rounds consistently across all four operations.",
-      "reason": "Difficulty adjusts operand range via a multiplier and question count is adjusted in PlayRoundPage; however, roundEngine/createRoundResult does not carry difficulty itself (difficulty is added later in PlayRoundPage), and backend only has 3 difficulties which prevents consistent difficulty tracking for the 4-option model (notably Math Wizard).",
-      "evidence": [
-        "frontend/src/game/questionGenerator.ts",
-        "frontend/src/pages/play/PlayRoundPage.tsx",
-        "frontend/src/game/roundEngine.ts",
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-20",
-      "requirement": "Persist rewards between sessions for anonymous users (localStorage), and keep the system compatible with logged-in users (do not break existing cloud progress).",
-      "reason": "Anonymous persistence exists, but authenticated reward persistence/fetching is not integrated into the rewards UI: Progress page reads only localStorage stickers (useStickerRewards) and does not fetch/display backend-earned rewards for logged-in users. Also, backend submission API signature change to require difficulty may break existing callers if any exist beyond updated hook.",
-      "evidence": [
-        "frontend/src/hooks/useStickerRewards.ts",
-        "frontend/src/pages/ProgressPage.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-21",
-      "requirement": "Backend must record a completed level event associated with caller, age group, game type, and difficulty, and associate an earned sticker with that completion. Frontend must be able to fetch authenticated user sticker/reward data; submitted results must include difficulty without breaking existing progress APIs.",
-      "reason": "Diff shows backend types for LevelProgress and frontend hooks for addEarnedReward/getEarnedRewards, but evidence does not show level-completion recording tied to ageGroup+gameType+difficulty (only difficulty appears in reward methods). Also backend Difficulty lacks Math Wizard, and submitResult now requires a difficulty parameter, which may break existing API compatibility (no overload/default path shown).",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/hooks/useQueries.ts",
-        "backend/migration.mo"
-      ]
-    },
-    {
-      "id": "REQ-22",
-      "requirement": "Sticker images must be present under frontend/public/assets/generated with the exact required filenames, used in rewards UI with fallback if an image fails.",
-      "reason": "Frontend references the required filenames/paths and includes an image fallback on error, but the actual static asset files under frontend/public/assets/generated are not shown as added in the diff summary, so presence cannot be confirmed from evidence.",
-      "evidence": [
-        "frontend/src/rewards/stickers.ts",
         "frontend/src/pages/ProgressPage.tsx"
       ]
-    }
-  ],
-  "hallucinated_features": [
-    {
-      "description": "Tailwind theme and global typography/color-contrast changes unrelated to difficulty selection and sticker chart.",
-      "reason": "BuildRequest focuses on difficulty selection, question generation changes, sticker rewards, backend progress extensions, and static sticker assets. Theme/typography updates are not requested.",
-      "evidence": [
-        "frontend/tailwind.config.js",
-        "frontend/src/index.css",
-        "frontend/src/theme.ts"
-      ]
     },
     {
-      "description": "Added mapping that forces 'Math Wizard' to backend 'hard' rather than extending backend to support four difficulties.",
-      "reason": "BuildRequest requires four difficulty options end-to-end, including tracking by difficulty in backend progress/rewards. Mapping Math Wizard to hard is an unrequested behavior that reduces fidelity.",
+      "requirement": "Provide the required static image asset: sticker-board-bg.dim_1200x800.png served from frontend/public/assets/generated.",
+      "reason": "StickerBoard references /assets/generated/sticker-board-bg.dim_1200x800.png, but no new image/static asset file addition is shown in the diff summary.",
       "evidence": [
-        "frontend/src/game/difficulty.ts"
+        "frontend/src/components/progress/StickerBoard.tsx"
       ]
     }
   ],
-  "confidence": 0.74,
+  "hallucinated_features": [],
+  "confidence": 0.72,
   "changed_files": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/components/game/DifficultySelector.tsx",
-    "frontend/src/game/difficulty.ts",
-    "frontend/src/game/questionGenerator.ts",
-    "frontend/src/game/roundEngine.ts",
-    "frontend/src/game/timesTables.ts",
-    "frontend/src/game/types.ts",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/hooks/useStickerRewards.ts",
-    "frontend/src/hooks/useTimesTablesPractice.ts",
-    "frontend/src/pages/ActivitySelectPage.tsx",
+    "frontend/src/App.tsx",
+    "frontend/src/components/layout/PageHeader.tsx",
+    "frontend/src/components/mascot/Mascot.tsx",
+    "frontend/src/components/nav/MainNav.tsx",
+    "frontend/src/components/progress/StickerBoard.tsx",
+    "frontend/src/index.css",
+    "frontend/src/pages/AgeSelectPage.tsx",
+    "frontend/src/pages/HomePage.tsx",
     "frontend/src/pages/ProgressPage.tsx",
-    "frontend/src/pages/play/PlayRoundPage.tsx",
     "frontend/src/pages/play/RoundSummaryPage.tsx",
-    "frontend/src/pages/times-tables/TimesTablesPracticeView.tsx",
-    "frontend/src/rewards/stickers.ts",
+    "frontend/src/state/AgeGroupContext.tsx",
     "project_state.json"
   ]
 }

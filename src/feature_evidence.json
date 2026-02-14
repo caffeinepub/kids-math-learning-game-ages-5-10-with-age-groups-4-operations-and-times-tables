@@ -2,14 +2,37 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-difficulty-selector-with-four-options-easy-medium-hard-and-math-wizard-that-the-child-can-choose-before-starting-an-operations-round-addition-subtraction-multiplication-division-the-selected-difficulty-must-be-clearly-shown-during-gameplay-and-included-in-the-round-result-data-passed-to-the-round-summary-screen",
-      "featureTitle": "Add a difficulty selector with four options — \"Easy\", \"Medium\", \"Hard\", and \"Math Wizard\" — that the child can choose before starting an Operations round (addition/subtraction/multiplication/division). The selected difficulty must be clearly shown during gameplay and included in the round result data passed to the Round Summary screen.",
+      "featureId": "feature-restore-the-age-groups-section-so-children-can-always-access-and-use-age-group-selection-5-6-7-8-9-10-ensure-the-home-flow-and-any-guards-reliably-route-users-to-the-age-select-screen-when-no-age-group-is-selected-and-that-the-age-select-screen-renders-the-full-set-of-age-group-cards",
+      "featureTitle": "Restore the Age Groups section so children can always access and use age-group selection (5–6, 7–8, 9–10). Ensure the Home flow and any guards reliably route users to the Age Select screen when no age group is selected, and that the Age Select screen renders the full set of age-group cards.",
       "files": [
-        "frontend/src/components/game/DifficultySelector.tsx",
-        "frontend/src/game/difficulty.ts",
-        "frontend/src/game/types.ts",
-        "frontend/src/pages/ActivitySelectPage.tsx",
-        "frontend/src/pages/play/PlayRoundPage.tsx",
+        "frontend/src/App.tsx",
+        "frontend/src/components/nav/MainNav.tsx",
+        "frontend/src/pages/AgeSelectPage.tsx",
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/src/state/AgeGroupContext.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-re-apply-the-intended-kid-friendly-pastel-styling-across-the-app-and-remove-the-unintended-bold-look-regression-keep-text-high-contrast-legible-but-ensure-the-overall-look-is-soft-pastel-rather-than-harsh-bold-matching-the-existing-theme-tokens-and-design-direction",
+      "featureTitle": "Re-apply the intended kid-friendly pastel styling across the app and remove the unintended ‘bold’ look regression. Keep text high-contrast/legible, but ensure the overall look is soft pastel rather than harsh/bold, matching the existing theme tokens and design direction.",
+      "files": [
+        "frontend/src/components/layout/PageHeader.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/AgeSelectPage.tsx",
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/src/pages/ProgressPage.tsx",
         "frontend/src/pages/play/RoundSummaryPage.tsx"
       ],
       "components": [
@@ -21,62 +44,19 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-17"
+        "REQ-2"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-question-generation-and-round-configuration-so-difficulty-meaningfully-changes-gameplay-for-operations-rounds-while-still-respecting-the-existing-age-group-ranges-difficulty-must-be-applied-consistently-across-all-four-operations",
-      "featureTitle": "Update question generation and round configuration so difficulty meaningfully changes gameplay for Operations rounds, while still respecting the existing age-group ranges. Difficulty must be applied consistently across all four operations.",
+      "featureId": "feature-restore-the-animated-picture-mascot-experience-on-key-screens-by-ensuring-the-mascot-renders-and-its-animations-work-idle-float-cheer-bounce-in-encourage-wiggle-wherever-it-is-already-used",
+      "featureTitle": "Restore the animated picture/mascot experience on key screens by ensuring the mascot renders and its animations work (idle float, cheer bounce-in, encourage wiggle) wherever it is already used.",
       "files": [
-        "frontend/src/game/questionGenerator.ts",
-        "frontend/src/game/roundEngine.ts",
-        "frontend/src/pages/play/PlayRoundPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-18"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-the-same-four-difficulty-options-easy-medium-hard-math-wizard-to-times-tables-practice-and-apply-the-chosen-difficulty-to-practice-configuration-e-g-number-of-questions-and-or-question-mix-the-selected-difficulty-must-be-visible-during-practice-and-reflected-in-the-practice-completion-view",
-      "featureTitle": "Add the same four difficulty options (Easy/Medium/Hard/Math Wizard) to Times Tables Practice, and apply the chosen difficulty to practice configuration (e.g., number of questions and/or question mix). The selected difficulty must be visible during practice and reflected in the practice completion view.",
-      "files": [
-        "frontend/src/components/game/DifficultySelector.tsx",
-        "frontend/src/game/timesTables.ts",
-        "frontend/src/hooks/useTimesTablesPractice.ts",
-        "frontend/src/pages/times-tables/TimesTablesPracticeView.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-19"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-a-rewards-system-that-grants-a-fun-sticker-reward-each-time-a-child-completes-a-level-and-display-a-sticker-chart-define-level-completion-for-operations-rounds-as-reaching-the-round-summary-screen-i-e-finishing-a-round-persist-rewards-between-sessions-for-anonymous-users-localstorage-and-keep-the-system-compatible-with-logged-in-users-do-not-break-existing-cloud-progress",
-      "featureTitle": "Implement a rewards system that grants a fun sticker reward each time a child completes a level, and display a sticker chart. Define \"level completion\" for Operations rounds as reaching the Round Summary screen (i.e., finishing a round). Persist rewards between sessions for anonymous users (localStorage), and keep the system compatible with logged-in users (do not break existing cloud progress).",
-      "files": [
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/hooks/useStickerRewards.ts",
+        "frontend/src/components/mascot/Mascot.tsx",
+        "frontend/src/pages/AgeSelectPage.tsx",
+        "frontend/src/pages/HomePage.tsx",
         "frontend/src/pages/ProgressPage.tsx",
-        "frontend/src/pages/play/RoundSummaryPage.tsx",
-        "frontend/src/rewards/stickers.ts"
+        "frontend/src/pages/play/RoundSummaryPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -87,17 +67,17 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-20"
+        "REQ-3"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-integrate-generated-sticker-images-as-static-assets-and-use-them-in-the-rewards-ui-round-summary-reward-moment-and-progress-page-sticker-chart-store-generated-images-under-frontend-public-assets-generated-and-reference-them-directly-from-the-frontend",
-      "featureTitle": "Integrate generated sticker images as static assets and use them in the rewards UI (Round Summary reward moment and Progress page sticker chart). Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
+      "featureId": "feature-restore-ensure-the-sticker-rewards-system-and-add-a-sticker-board-style-view-so-that-completing-a-level-awards-a-sticker-and-the-child-can-view-earned-stickers-on-a-dedicated-sticker-board-a-chart-board-presentation-not-just-a-plain-list-define-level-completion-as-reaching-the-round-summary-screen-existing-behavior-and-keep-rewards-persisted-between-sessions-for-anonymous-users",
+      "featureTitle": "Restore/ensure the sticker rewards system and add a sticker-board style view so that completing a level awards a sticker and the child can view earned stickers on a dedicated sticker board (a chart/board presentation, not just a plain list). Define level completion as reaching the Round Summary screen (existing behavior), and keep rewards persisted between sessions for anonymous users.",
       "files": [
+        "frontend/src/components/progress/StickerBoard.tsx",
         "frontend/src/pages/ProgressPage.tsx",
-        "frontend/src/pages/play/RoundSummaryPage.tsx",
-        "frontend/src/rewards/stickers.ts"
+        "frontend/src/pages/play/RoundSummaryPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -108,7 +88,31 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-22"
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-and-apply-a-single-consistent-visual-theme-pass-for-the-restored-screens-age-select-home-round-summary-rewards-moment-progress-sticker-board-so-the-app-feels-cohesive-and-kid-friendly-soft-pastels-rounded-shapes-playful-typography-and-enforce-it-consistently",
+      "featureTitle": "Create and apply a single, consistent visual theme pass for the restored screens (Age Select, Home, Round Summary rewards moment, Progress sticker board) so the app feels cohesive and kid-friendly (soft pastels, rounded shapes, playful typography), and enforce it consistently.",
+      "files": [
+        "frontend/src/components/progress/StickerBoard.tsx",
+        "frontend/src/index.css",
+        "frontend/src/pages/AgeSelectPage.tsx",
+        "frontend/src/pages/HomePage.tsx",
+        "frontend/src/pages/ProgressPage.tsx",
+        "frontend/src/pages/play/RoundSummaryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
       ],
       "confidence": "high"
     }

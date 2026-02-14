@@ -74,7 +74,7 @@ export default function RoundSummaryPage() {
   if (!result) {
     return (
       <PageShell>
-        <div className="text-center text-2xl text-foreground">Loading results...</div>
+        <div className="text-center text-2xl font-normal">Loading results...</div>
       </PageShell>
     );
   }
@@ -103,9 +103,9 @@ export default function RoundSummaryPage() {
         </div>
       )}
 
-      <Card className="border-4 border-primary/20 shadow-kid">
+      <Card className="border-4 border-primary/20 shadow-kid bg-card">
         <CardHeader>
-          <CardTitle className="text-4xl md:text-5xl text-center text-foreground">Your Results</CardTitle>
+          <CardTitle className="text-4xl md:text-5xl text-center">Your Results</CardTitle>
         </CardHeader>
         <CardContent className="space-y-10 py-8">
           <div className="text-center">
@@ -115,20 +115,20 @@ export default function RoundSummaryPage() {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="bg-success/10 rounded-3xl p-8 border-2 border-success">
               <p className="text-7xl font-bold text-success mb-3">{result.correct}</p>
-              <p className="text-xl md:text-2xl text-foreground">Correct</p>
+              <p className="text-xl md:text-2xl font-normal">Correct</p>
             </div>
             <div className="bg-destructive/10 rounded-3xl p-8 border-2 border-destructive">
               <p className="text-7xl font-bold text-destructive mb-3">{incorrectCount}</p>
-              <p className="text-xl md:text-2xl text-foreground">Incorrect</p>
+              <p className="text-xl md:text-2xl font-normal">Incorrect</p>
             </div>
             <div className="bg-accent/10 rounded-3xl p-8 border-2 border-accent">
               <p className="text-6xl font-bold text-accent mb-3">{percentage}%</p>
-              <p className="text-xl md:text-2xl text-foreground">Score</p>
+              <p className="text-xl md:text-2xl font-normal">Score</p>
             </div>
           </div>
 
           <div className="text-center">
-            <p className="text-2xl md:text-3xl text-foreground">
+            <p className="text-2xl md:text-3xl font-normal">
               Time: {timeInSeconds} seconds
             </p>
           </div>
@@ -136,9 +136,9 @@ export default function RoundSummaryPage() {
       </Card>
 
       {awardedSticker && (
-        <Card className="border-4 border-secondary/20 shadow-kid bg-secondary/5">
+        <Card className="border-4 border-secondary/20 shadow-kid bg-gradient-to-br from-secondary/10 to-accent/10">
           <CardHeader>
-            <CardTitle className="text-3xl md:text-4xl text-center text-foreground">
+            <CardTitle className="text-3xl md:text-4xl text-center">
               🎁 You Earned a Sticker!
             </CardTitle>
           </CardHeader>
@@ -147,13 +147,13 @@ export default function RoundSummaryPage() {
               <img
                 src={awardedSticker.imagePath}
                 alt={awardedSticker.name}
-                className="w-32 h-32 mx-auto"
+                className="w-32 h-32 mx-auto animate-bounce-in"
                 onError={() => setImageError(true)}
               />
             ) : (
-              <div className="text-8xl">{awardedSticker.emoji}</div>
+              <div className="text-8xl animate-bounce-in">{awardedSticker.emoji}</div>
             )}
-            <p className="text-2xl md:text-3xl font-bold text-foreground">
+            <p className="text-2xl md:text-3xl font-bold">
               {awardedSticker.name}
             </p>
           </CardContent>

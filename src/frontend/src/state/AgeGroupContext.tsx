@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { AgeGroupKey } from './ageGroup';
+import { AgeGroupKey, AGE_GROUPS } from './ageGroup';
 
 interface AgeGroupContextType {
   selectedAgeGroup: AgeGroupKey | null;
@@ -13,7 +13,11 @@ const STORAGE_KEY = 'kids-math-age-group';
 export function AgeGroupProvider({ children }: { children: ReactNode }) {
   const [selectedAgeGroup, setSelectedAgeGroupState] = useState<AgeGroupKey | null>(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored as AgeGroupKey | null;
+    // Validate stored value against known age groups
+    if (stored && AGE_GROUPS.some(ag => ag.key === stored)) {
+      return stored as AgeGroupKey;
+    }
+    return null;
   });
 
   const setSelectedAgeGroup = (ageGroup: AgeGroupKey) => {

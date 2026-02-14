@@ -110,10 +110,25 @@ const helpRoute = createRoute({
   component: HelpPage,
 });
 
+// Wrapper component for progress with age group guard
+function ProgressGuard() {
+  const { selectedAgeGroup } = useAgeGroup();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!selectedAgeGroup) {
+      navigate({ to: '/age-select' });
+    }
+  }, [selectedAgeGroup, navigate]);
+
+  if (!selectedAgeGroup) return null;
+  return <ProgressPage />;
+}
+
 const progressRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/progress',
-  component: ProgressPage,
+  component: ProgressGuard,
 });
 
 const settingsRoute = createRoute({

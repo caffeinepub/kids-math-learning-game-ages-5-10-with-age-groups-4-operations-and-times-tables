@@ -1,138 +1,112 @@
 {
   "kind": "build_request",
-  "title": "Add difficulty selection (Easy/Medium/Hard/Math Wizard) and sticker rewards chart",
+  "title": "Restore age-group selection UI, pastel theme + animated mascot, and sticker-board rewards",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-17",
-      "text": "Add a difficulty selector with four options — \"Easy\", \"Medium\", \"Hard\", and \"Math Wizard\" — that the child can choose before starting an Operations round (addition/subtraction/multiplication/division). The selected difficulty must be clearly shown during gameplay and included in the round result data passed to the Round Summary screen.",
+      "id": "REQ-1",
+      "text": "Restore the Age Groups section so children can always access and use age-group selection (5–6, 7–8, 9–10). Ensure the Home flow and any guards reliably route users to the Age Select screen when no age group is selected, and that the Age Select screen renders the full set of age-group cards.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "That is perfect but can we a option the can choose like easy,  medium, hard, math wizard please"
+          "My age groups section has gone"
         ]
       },
       "acceptanceCriteria": [
-        "On the Operations flow (starting from the activity selection), the user can choose exactly one difficulty: Easy, Medium, Hard, or Math Wizard before the round begins.",
-        "During the round (PlayRoundPage), the UI shows the selected difficulty label in a readable way.",
-        "The stored round result (sessionStorage key \"math-game-result\") includes the selected difficulty so the Round Summary can read it."
+        "When no age group is selected, the app provides a clear way to reach age-group selection and successfully navigates to /age-select.",
+        "/age-select renders all configured age-group options as selectable cards and selecting one navigates to /activity-select.",
+        "Age-group selection persists across page reloads (existing localStorage-based behavior remains working)."
       ]
     },
     {
-      "id": "REQ-18",
-      "text": "Update question generation and round configuration so difficulty meaningfully changes gameplay for Operations rounds, while still respecting the existing age-group ranges. Difficulty must be applied consistently across all four operations.",
+      "id": "REQ-2",
+      "text": "Re-apply the intended kid-friendly pastel styling across the app and remove the unintended ‘bold’ look regression. Keep text high-contrast/legible, but ensure the overall look is soft pastel rather than harsh/bold, matching the existing theme tokens and design direction.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "can we a option the can choose like easy,  medium, hard, math wizard please"
+          "has gone back to bold instead off the pastel colour"
         ]
       },
       "acceptanceCriteria": [
-        "For the same age group and game type, selecting different difficulties produces measurably different question sets (e.g., wider operand ranges and/or more questions for harder difficulties).",
-        "The difficulty logic applies to addition, subtraction, multiplication, and division question generation (no operation is left unchanged).",
-        "No crashes occur when starting a round with any difficulty across all age groups."
+        "Core screens (Home, Age Select, Activity Select, Play, Round Summary, Progress) use the pastel theme colors from the global theme tokens (background/primary/secondary/accent/etc.).",
+        "Default paragraph/body text is not rendered as overly bold; bold is reserved for intentional emphasis (e.g., key numbers like score/stars).",
+        "No visual regressions in readability: text remains dark/high-contrast against the pastel backgrounds."
       ]
     },
     {
-      "id": "REQ-19",
-      "text": "Add the same four difficulty options (Easy/Medium/Hard/Math Wizard) to Times Tables Practice, and apply the chosen difficulty to practice configuration (e.g., number of questions and/or question mix). The selected difficulty must be visible during practice and reflected in the practice completion view.",
+      "id": "REQ-3",
+      "text": "Restore the animated picture/mascot experience on key screens by ensuring the mascot renders and its animations work (idle float, cheer bounce-in, encourage wiggle) wherever it is already used.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "can we a option the can choose like easy,  medium, hard, math wizard please"
+          "and the animated picture"
         ]
       },
       "acceptanceCriteria": [
-        "Times Tables Practice includes a difficulty selector with exactly: Easy, Medium, Hard, Math Wizard.",
-        "Starting practice uses the selected difficulty to adjust the session (e.g., question count and/or other difficulty-related settings).",
-        "While practicing, the UI indicates the selected difficulty.",
-        "After practice completes, the completion summary remains functional and still shows stars/score as before."
+        "Mascot images referenced by the Mascot component load correctly from static assets and display on Home, Age Select, Progress, and Round Summary pages.",
+        "Mascot animation classes used by the Mascot component produce visible animation (float/cheer/wiggle) in the UI.",
+        "If an expected mascot image asset is missing, the UI fails gracefully (e.g., shows an accessible placeholder) rather than appearing blank."
       ]
     },
     {
-      "id": "REQ-20",
-      "text": "Implement a rewards system that grants a fun sticker reward each time a child completes a level, and display a sticker chart. Define \"level completion\" for Operations rounds as reaching the Round Summary screen (i.e., finishing a round). Persist rewards between sessions for anonymous users (localStorage), and keep the system compatible with logged-in users (do not break existing cloud progress).",
+      "id": "REQ-4",
+      "text": "Restore/ensure the sticker rewards system and add a sticker-board style view so that completing a level awards a sticker and the child can view earned stickers on a dedicated sticker board (a chart/board presentation, not just a plain list). Define level completion as reaching the Round Summary screen (existing behavior), and keep rewards persisted between sessions for anonymous users.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "can we have fun stickers and a chart so every time they complete a level they get a reward"
+          "I still want the stickers and sticker board for the stickers  as a reward for completing the level"
         ]
       },
       "acceptanceCriteria": [
-        "When the Round Summary screen is reached for an Operations round, the app awards exactly one sticker reward for that completion event.",
-        "Sticker rewards persist after page refresh/reopen for anonymous users using localStorage.",
-        "A new \"Sticker Chart\" section is visible on the Progress page, showing earned stickers in a simple grid/chart layout.",
-        "The existing stars/attempts/best-score progress display continues to work as before."
+        "Completing an operations round and reaching the Round Summary screen awards exactly one sticker for that completion and shows the earned sticker on the Round Summary screen.",
+        "The Progress area includes a sticker-board UI that displays earned stickers placed into board slots in earned order (with empty slots visible when not yet earned).",
+        "Sticker rewards persist across reloads for anonymous users via localStorage (no loss of previously earned stickers).",
+        "If a sticker image fails to load, the sticker-board view shows a fallback (e.g., the sticker emoji) instead of a broken image icon."
       ]
     },
     {
-      "id": "REQ-21",
-      "text": "Extend backend progress storage to support recording completed levels and earned sticker rewards for authenticated users, and expose query/mutation methods needed by the frontend to read and update these rewards without breaking existing progress APIs (e.g., getProgressSummary, submitResult). Include the selected difficulty with submitted results so rewards and progress can be tracked by difficulty.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "can we have fun stickers and a chart so every time they complete a level they get a reward",
-          "can we a option the can choose like easy,  medium, hard, math wizard please"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend can record a completed level event associated with: caller, age group, game type, and difficulty, and can associate an earned sticker with that completion.",
-        "Frontend can fetch authenticated user sticker/reward data via a backend query method (or extension of an existing method) without requiring any third-party services.",
-        "Submitting an authenticated round result includes difficulty and does not break existing callers (frontend remains able to submit results and load progress summary)."
-      ]
-    },
-    {
-      "id": "REQ-22",
-      "text": "Integrate generated sticker images as static assets and use them in the rewards UI (Round Summary reward moment and Progress page sticker chart). Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
+      "id": "REQ-5",
+      "text": "Create and apply a single, consistent visual theme pass for the restored screens (Age Select, Home, Round Summary rewards moment, Progress sticker board) so the app feels cohesive and kid-friendly (soft pastels, rounded shapes, playful typography), and enforce it consistently.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "can we have fun stickers and a chart so every time they complete a level they get a reward"
+          "has gone back to bold instead off the pastel colour"
         ]
       },
       "acceptanceCriteria": [
-        "Sticker images are present under frontend/public/assets/generated with the exact filenames specified in imageRequirements.required.",
-        "Rewards UI uses these static image assets (not fetched through the backend).",
-        "If an image fails to load, the UI still renders with a simple fallback (e.g., showing the sticker name as text) and does not crash."
+        "The same design language (colors, rounded corners, shadows, spacing) is consistently applied across the key screens.",
+        "No screen appears to use a mismatched/unstyled fallback look compared to the rest of the app."
       ]
     }
   ],
   "constraints": [
-    "Do not edit any files under frontend/src/main.tsx or other paths listed in SYSTEM_CONTEXT.frontend.immutablePaths; compose existing components instead.",
-    "Backend must remain a single Motoko actor with all logic in backend/main.mo; only add backend/migration.mo if an upgrade-safe state migration is actually required by the implementation.",
-    "Use English for all user-facing text added by this change."
+    "Do not edit any files under frontend/immutablePaths (e.g., frontend/src/main.tsx, frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/components/ui).",
+    "Use English for all user-facing text.",
+    "Do not route generated images through the backend; static assets must be served from frontend/public/assets/generated."
   ],
   "nonGoals": [
-    "Add third-party authentication providers (only Internet Identity is allowed).",
-    "Add real-time features (WebSockets/push notifications/chat).",
-    "Introduce external databases or non-Motoko backend services."
+    "Adding new game types or changing question-generation logic.",
+    "Adding third-party authentication providers (only Internet Identity is supported).",
+    "Adding real-time multiplayer or chat."
   ],
   "imageRequirements": {
     "required": [
-      "Cute star sticker, bright pastel, thick outline, kid-friendly (sticker-star.dim_256x256.png)",
-      "Cute rocket sticker, bright pastel, thick outline, kid-friendly (sticker-rocket.dim_256x256.png)",
-      "Cute dinosaur sticker, bright pastel, thick outline, kid-friendly (sticker-dino.dim_256x256.png)",
-      "Cute unicorn sticker, bright pastel, thick outline, kid-friendly (sticker-unicorn.dim_256x256.png)",
-      "Cute wizard hat sticker, bright pastel, thick outline, kid-friendly (sticker-wizard-hat.dim_256x256.png)",
-      "Cute trophy sticker, bright pastel, thick outline, kid-friendly (sticker-trophy.dim_256x256.png)"
+      "Sticker board background illustration, bright pastel, kid-friendly, with empty sticker slots (sticker-board-bg.dim_1200x800.png)"
     ],
     "edits": []
   },

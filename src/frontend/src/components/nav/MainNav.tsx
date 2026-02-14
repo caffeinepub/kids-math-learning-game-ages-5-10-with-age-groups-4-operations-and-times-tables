@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useRouterState } from '@tanstack/react-router';
 import { Button } from '../ui/button';
-import { Home, BookOpen, HelpCircle, Trophy, Settings } from 'lucide-react';
+import { Home, BookOpen, HelpCircle, Trophy, Settings, Users } from 'lucide-react';
 
 export default function MainNav() {
   const navigate = useNavigate();
@@ -10,6 +10,7 @@ export default function MainNav() {
 
   const navItems = [
     { path: '/', label: 'Home', icon: Home },
+    { path: '/age-select', label: 'Age', icon: Users },
     { path: '/times-tables', label: 'Times Tables', icon: BookOpen },
     { path: '/help', label: 'Help', icon: HelpCircle },
     { path: '/progress', label: 'Progress', icon: Trophy },
@@ -33,7 +34,7 @@ export default function MainNav() {
                   onClick={() => navigate({ to: item.path })}
                   variant={isActive ? 'default' : 'ghost'}
                   size="lg"
-                  className="hidden md:flex gap-2 text-foreground"
+                  className="hidden md:flex gap-2"
                 >
                   <Icon className="w-5 h-5" />
                   {item.label}
