@@ -1,2 +1,3 @@
-# kids-math-learning-game-ages-5-10-with-age-groups-4-operations-and-times-tables
-Exported from Caffeine project: Kids Math Learning Game (Ages 5–10) with Age Groups, 4 Operations, and Times Tables
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

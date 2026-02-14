@@ -1,0 +1,158 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-14T10:22:08.943Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 6,
+    "implemented": 5,
+    "items": [
+      {
+        "id": "REQ-17",
+        "summary": "Add a difficulty selector with four options — \"Easy\", \"Medium\", \"Hard\", and \"Math Wizard\" — that the child can choose before starting an Operations round (addition/subtraction/multiplication/division). The selected difficulty must be clearly shown during gameplay and included in the round result data passed to the Round Summary screen.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/game/types.ts",
+          "frontend/src/game/difficulty.ts",
+          "frontend/src/components/game/DifficultySelector.tsx",
+          "frontend/src/pages/ActivitySelectPage.tsx",
+          "frontend/src/pages/play/PlayRoundPage.tsx",
+          "frontend/src/pages/play/RoundSummaryPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/game/types.ts",
+          "frontend/src/game/difficulty.ts",
+          "frontend/src/components/game/DifficultySelector.tsx",
+          "frontend/src/pages/ActivitySelectPage.tsx",
+          "frontend/src/pages/play/PlayRoundPage.tsx",
+          "frontend/src/pages/play/RoundSummaryPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-18",
+        "summary": "Update question generation and round configuration so difficulty meaningfully changes gameplay for Operations rounds, while still respecting the existing age-group ranges. Difficulty must be applied consistently across all four operations.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/game/questionGenerator.ts",
+          "frontend/src/pages/play/PlayRoundPage.tsx",
+          "frontend/src/game/roundEngine.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/game/questionGenerator.ts",
+          "frontend/src/pages/play/PlayRoundPage.tsx",
+          "frontend/src/game/roundEngine.ts"
+        ]
+      },
+      {
+        "id": "REQ-19",
+        "summary": "Add the same four difficulty options (Easy/Medium/Hard/Math Wizard) to Times Tables Practice, and apply the chosen difficulty to practice configuration (e.g., number of questions and/or question mix). The selected difficulty must be visible during practice and reflected in the practice completion view.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useTimesTablesPractice.ts",
+          "frontend/src/pages/times-tables/TimesTablesPracticeView.tsx",
+          "frontend/src/game/timesTables.ts",
+          "frontend/src/components/game/DifficultySelector.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useTimesTablesPractice.ts",
+          "frontend/src/pages/times-tables/TimesTablesPracticeView.tsx",
+          "frontend/src/game/timesTables.ts",
+          "frontend/src/components/game/DifficultySelector.tsx"
+        ]
+      },
+      {
+        "id": "REQ-20",
+        "summary": "Implement a rewards system that grants a fun sticker reward each time a child completes a level, and display a sticker chart. Define \"level completion\" for Operations rounds as reaching the Round Summary screen (i.e., finishing a round). Persist rewards between sessions for anonymous users (localStorage), and keep the system compatible with logged-in users (do not break existing cloud progress).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/rewards/stickers.ts",
+          "frontend/src/hooks/useStickerRewards.ts",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/play/RoundSummaryPage.tsx",
+          "frontend/src/pages/ProgressPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/rewards/stickers.ts",
+          "frontend/src/hooks/useStickerRewards.ts",
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/play/RoundSummaryPage.tsx",
+          "frontend/src/pages/ProgressPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-21",
+        "summary": "Extend backend progress storage to support recording completed levels and earned sticker rewards for authenticated users, and expose query/mutation methods needed by the frontend to read and update these rewards without breaking existing progress APIs (e.g., getProgressSummary, submitResult). Include the selected difficulty with submitted results so rewards and progress can be tracked by difficulty.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-22",
+        "summary": "Integrate generated sticker images as static assets and use them in the rewards UI (Round Summary reward moment and Progress page sticker chart). Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/generated/sticker-star.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-rocket.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-dino.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-unicorn.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-wizard-hat.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-trophy.dim_256x256.png",
+          "frontend/src/rewards/stickers.ts",
+          "frontend/src/pages/play/RoundSummaryPage.tsx",
+          "frontend/src/pages/ProgressPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/generated/sticker-star.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-rocket.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-dino.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-unicorn.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-wizard-hat.dim_256x256.png",
+          "frontend/public/assets/generated/sticker-trophy.dim_256x256.png",
+          "frontend/src/rewards/stickers.ts",
+          "frontend/src/pages/play/RoundSummaryPage.tsx",
+          "frontend/src/pages/ProgressPage.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/sticker-dino.dim_256x256.png",
+    "frontend/public/assets/generated/sticker-rocket.dim_256x256.png",
+    "frontend/public/assets/generated/sticker-star.dim_256x256.png",
+    "frontend/public/assets/generated/sticker-trophy.dim_256x256.png",
+    "frontend/public/assets/generated/sticker-unicorn.dim_256x256.png",
+    "frontend/public/assets/generated/sticker-wizard-hat.dim_256x256.png",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/game/DifficultySelector.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/game/difficulty.ts",
+    "frontend/src/game/questionGenerator.ts",
+    "frontend/src/game/roundEngine.ts",
+    "frontend/src/game/timesTables.ts",
+    "frontend/src/game/types.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/hooks/useStickerRewards.ts",
+    "frontend/src/hooks/useTimesTablesPractice.ts",
+    "frontend/src/pages/ActivitySelectPage.tsx",
+    "frontend/src/pages/ProgressPage.tsx",
+    "frontend/src/pages/play/PlayRoundPage.tsx",
+    "frontend/src/pages/play/RoundSummaryPage.tsx",
+    "frontend/src/pages/times-tables/TimesTablesPracticeView.tsx",
+    "frontend/src/rewards/stickers.ts",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

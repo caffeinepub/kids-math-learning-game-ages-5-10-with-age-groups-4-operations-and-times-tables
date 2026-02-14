@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 1.5rem;
+        --background: 0.96 0.03 200;
+        --foreground: 0.15 0.01 280;
+        --card: 0.99 0.01 120;
+        --card-foreground: 0.15 0.01 280;
+        --popover: 0.99 0.01 120;
+        --popover-foreground: 0.15 0.01 280;
+        --primary: 0.75 0.12 280;
+        --primary-foreground: 0.99 0.01 120;
+        --secondary: 0.82 0.10 45;
+        --secondary-foreground: 0.15 0.01 280;
+        --muted: 0.94 0.02 120;
+        --muted-foreground: 0.35 0.02 280;
+        --accent: 0.80 0.12 160;
+        --accent-foreground: 0.15 0.01 280;
+        --destructive: 0.70 0.15 25;
+        --destructive-foreground: 0.99 0.01 120;
+        --border: 0.90 0.02 120;
+        --input: 0.90 0.02 120;
+        --ring: 0.75 0.12 280;
+        --success: 0.78 0.12 140;
+        --success-foreground: 0.15 0.01 280;
+        --warning: 0.85 0.12 80;
+        --warning-foreground: 0.15 0.01 280;
+        --chart-1: 0.75 0.12 280;
+        --chart-2: 0.80 0.12 160;
+        --chart-3: 0.82 0.10 45;
+        --chart-4: 0.78 0.12 320;
+        --chart-5: 0.80 0.10 200;
+    }
+
+    .dark {
+        --background: 0.20 0.05 280;
+        --foreground: 0.95 0.01 120;
+        --card: 0.25 0.06 280;
+        --card-foreground: 0.95 0.01 120;
+        --popover: 0.22 0.05 280;
+        --popover-foreground: 0.95 0.01 120;
+        --primary: 0.75 0.12 280;
+        --primary-foreground: 0.99 0.01 120;
+        --secondary: 0.82 0.10 45;
+        --secondary-foreground: 0.15 0.01 280;
+        --muted: 0.30 0.05 280;
+        --muted-foreground: 0.65 0.05 120;
+        --accent: 0.80 0.12 160;
+        --accent-foreground: 0.15 0.01 280;
+        --destructive: 0.70 0.15 25;
+        --destructive-foreground: 0.99 0.01 120;
+        --border: 0.35 0.05 280;
+        --input: 0.35 0.05 280;
+        --ring: 0.75 0.12 280;
+        --success: 0.78 0.12 140;
+        --success-foreground: 0.15 0.01 280;
+        --warning: 0.85 0.12 80;
+        --warning-foreground: 0.15 0.01 280;
+    }
+
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+    }
+}
+
+@layer utilities {
+    .text-success {
+        color: oklch(var(--success));
+    }
+    .bg-success {
+        background-color: oklch(var(--success));
+    }
+    .text-success-foreground {
+        color: oklch(var(--success-foreground));
+    }
+    .text-warning {
+        color: oklch(var(--warning));
+    }
+    .bg-warning {
+        background-color: oklch(var(--warning));
+    }
+    .text-warning-foreground {
+        color: oklch(var(--warning-foreground));
+    }
+}

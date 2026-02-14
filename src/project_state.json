@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 13,
+  "summary": "Colorful kids math learning game (ages 5–10) with age-grouped content for addition, subtraction, multiplication, division, and times tables, featuring fun UI/characters, improved readability, plus selectable difficulty levels (easy/medium/hard/math wizard) and a rewards system (stickers + progress chart) for completing levels.",
+  "architectural_notes": [
+    "Target audience: children ages 5–10; content should be segmented by age group and designed to be engaging and easy to understand.",
+    "UI readability/accessibility: ensure sufficient color contrast and legible typography on key screens (especially startup).",
+    "Global typography: use black, high-contrast text across the app for readability.",
+    "Visual theme direction: prefer bright pastel background colors; avoid overly bold/saturated palettes.",
+    "UI consistency: informational boxes/cards (including \"First time here\") should share the same white background styling.",
+    "Progression/rewards should be child-friendly: clear difficulty labels and visual rewards (stickers + chart) upon level completion."
+  ],
+  "known_issues": [
+    "User reports the current build is not working (details unspecified).",
+    "Startup screen text is hard to read; font/color needs to be darker for better contrast.",
+    "User prefers Version 3 layout; current Version 4 layout is not desired (wants V4 to look like V3 but keep V4 black font)."
+  ],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Cute star sticker, bright pastel, thick outline, kid-friendly (sticker-star.dim_256x256.png)\n- Cute rocket sticker, bright pastel, thick outline, kid-friendly (sticker-rocket.dim_256x256.png)\n- Cute dinosaur sticker, bright pastel, thick outline, kid-friendly (sticker-dino.dim_256x256.png)\n- Cute unicorn sticker, bright pastel, thick outline, kid-friendly (sticker-unicorn.dim_256x256.png)\n- Cute wizard hat sticker, bright pastel, thick outline, kid-friendly (sticker-wizard-hat.dim_256x256.png)\n- Cute trophy sticker, bright pastel, thick outline, kid-friendly (sticker-trophy.dim_256x256.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-the-core-math-practice-gameplay-for-kids-ages-5-10-with-configurable-modes-for-addition-subtraction-multiplication-and-division-including-question-generation-answer-input-tap-click-instant-feedback-correct-try-again-and-a-short-round-summary-score-time-correct-count",
+      "title": "Create the core math practice gameplay for kids ages 5–10 with configurable modes for addition, subtraction, multiplication, and division, including question generation, answer input (tap/click), instant feedback (correct/try again), and a short round summary (score/time/correct count).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-dedicated-times-tables-area-that-supports-1-learning-view-table-grid-for-a-selected-number-and-2-practice-view-timed-or-untimed-quiz-with-selectable-table-s-e-g-2-12",
+      "title": "Add a dedicated Times Tables area that supports (1) learning view (table grid for a selected number) and (2) practice view (timed or untimed quiz) with selectable table(s) (e.g., 2–12).",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-organize-the-app-content-by-age-groups-5-6-7-8-9-10-and-adjust-difficulty-accordingly-number-ranges-allowed-operations-and-division-rules-with-an-age-group-selection-step-that-clearly-gates-what-content-is-presented",
+      "title": "Organize the app content by age groups (5–6, 7–8, 9–10) and adjust difficulty accordingly (number ranges, allowed operations, and division rules), with an age-group selection step that clearly gates what content is presented.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-fun-colorful-kid-friendly-ui-with-animated-mascot-characters-that-guide-the-player-e-g-encouragement-on-correct-answers-gentle-hints-on-incorrect-answers-and-keep-the-experience-fun-and-not-boring",
+      "title": "Implement a fun, colorful kid-friendly UI with animated mascot characters that guide the player (e.g., encouragement on correct answers, gentle hints on incorrect answers) and keep the experience “fun and not boring.”",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-in-app-help-how-to-area-with-short-instructional-videos-per-topic-addition-subtraction-multiplication-division-times-tables-that-can-be-played-in-the-browser-using-locally-served-static-video-files-and-fallback-text-guidance-if-a-video-is-missing",
+      "title": "Add an in-app Help/How-to area with short instructional videos per topic (addition, subtraction, multiplication, division, times tables) that can be played in the browser, using locally served static video files and fallback text guidance if a video is missing.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-simple-progression-tracking-system-per-age-group-and-mode-e-g-best-score-and-attempts-count-and-display-it-in-a-child-friendly-way-stickers-stars-persisting-progress-between-sessions",
+      "title": "Create a simple progression tracking system per age group and mode (e.g., best score and attempts count) and display it in a child-friendly way (stickers/stars), persisting progress between sessions.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-define-and-apply-a-coherent-distinctive-visual-theme-suitable-for-children-colors-typography-shapes-spacing-and-ui-tone-and-enforce-it-consistently-across-the-entire-app",
+      "title": "Define and apply a coherent, distinctive visual theme suitable for children (colors, typography, shapes, spacing, and UI tone) and enforce it consistently across the entire app.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-provide-a-main-navigation-and-screen-flow-that-clearly-supports-home-age-group-choose-activity-operations-or-times-tables-play-learn-results-progress-with-simple-controls-suitable-for-ages-5-10",
+      "title": "Provide a main navigation and screen flow that clearly supports: Home → Age Group → Choose Activity (operations or times tables) → Play/Learn → Results/Progress, with simple controls suitable for ages 5–10.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-app-loads-without-crashing-by-wrapping-the-tanstack-router-application-in-agegroupprovider-so-that-any-component-calling-useagegroup-is-always-inside-the-provider-do-not-edit-any-immutable-paths-such-as-frontend-src-main-tsx",
+      "title": "Ensure the app loads without crashing by wrapping the TanStack Router application in `AgeGroupProvider` so that any component calling `useAgeGroup()` is always inside the provider (do not edit any immutable paths such as `frontend/src/main.tsx`).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-user-friendly-global-error-boundary-or-equivalent-top-level-runtime-error-handling-around-the-main-application-so-that-unexpected-runtime-errors-render-a-simple-recovery-ui-in-english-e-g-something-went-wrong-with-a-reload-button-instead-of-a-blank-page",
+      "title": "Add a user-friendly global error boundary (or equivalent top-level runtime error handling) around the main application so that unexpected runtime errors render a simple recovery UI in English (e.g., \"Something went wrong\" with a \"Reload\" button) instead of a blank page.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-startup-screen-home-page-typography-styling-so-the-main-welcome-text-and-supporting-text-render-in-a-darker-easier-to-read-color-with-clearly-improved-contrast-against-the-background-image-gradient",
+      "title": "Update the startup screen (Home page) typography styling so the main welcome text and supporting text render in a darker, easier-to-read color with clearly improved contrast against the background image/gradient.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-text-throughout-the-app-render-in-black-high-contrast-easy-to-read-by-updating-the-global-theme-tokens-e-g-foreground-and-muted-foreground-so-default-text-and-secondary-text-are-clearly-legible-on-all-screens",
+      "title": "Make text throughout the app render in black (high-contrast, easy-to-read) by updating the global theme tokens (e.g., foreground and muted-foreground) so default text and secondary text are clearly legible on all screens.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-home-page-first-time-here-card-to-use-a-white-card-background-consistent-with-the-other-ui-boxes-cards-instead-of-the-current-tinted-warning-background",
+      "title": "Update the Home page “First time here?” card to use a white card background consistent with the other UI boxes/cards (instead of the current tinted warning background).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-adjust-the-app-s-overall-background-and-color-palette-to-bright-pastel-tones-avoid-overly-bold-saturated-colors-by-tuning-the-global-color-tokens-used-for-background-primary-secondary-accent-warning-and-success-and-ensuring-the-main-layout-background-gradient-looks-soft-and-not-in-your-face",
+      "title": "Adjust the app’s overall background and color palette to bright pastel tones (avoid overly bold/saturated colors) by tuning the global color tokens used for background, primary, secondary, accent, warning, and success and ensuring the main layout background/gradient looks soft and not “in your face.”",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-frontend-ui-so-version-4-uses-the-same-page-layout-and-component-arrangement-as-version-3-user-preferred-layout-while-keeping-version-4-s-current-black-high-contrast-typography",
+      "title": "Update the frontend UI so Version 4 uses the same page layout and component arrangement as Version 3 (user-preferred layout), while keeping Version 4’s current black/high-contrast typography.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-preserve-version-4-typography-readability-by-keeping-app-wide-text-in-black-or-near-black-high-contrast-after-the-version-3-layout-is-restored-including-default-text-and-secondary-muted-text",
+      "title": "Preserve Version 4 typography/readability by keeping app-wide text in black or near-black (high contrast) after the Version 3 layout is restored, including default text and secondary/muted text.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-difficulty-selector-with-four-options-easy-medium-hard-and-math-wizard-that-the-child-can-choose-before-starting-an-operations-round-addition-subtraction-multiplication-division-the-selected-difficulty-must-be-clearly-shown-during-gameplay-and-included-in-the-round-result-data-passed-to-the-round-summary-screen",
+      "title": "Add a difficulty selector with four options — \"Easy\", \"Medium\", \"Hard\", and \"Math Wizard\" — that the child can choose before starting an Operations round (addition/subtraction/multiplication/division). The selected difficulty must be clearly shown during gameplay and included in the round result data passed to the Round Summary screen.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-question-generation-and-round-configuration-so-difficulty-meaningfully-changes-gameplay-for-operations-rounds-while-still-respecting-the-existing-age-group-ranges-difficulty-must-be-applied-consistently-across-all-four-operations",
+      "title": "Update question generation and round configuration so difficulty meaningfully changes gameplay for Operations rounds, while still respecting the existing age-group ranges. Difficulty must be applied consistently across all four operations.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-same-four-difficulty-options-easy-medium-hard-math-wizard-to-times-tables-practice-and-apply-the-chosen-difficulty-to-practice-configuration-e-g-number-of-questions-and-or-question-mix-the-selected-difficulty-must-be-visible-during-practice-and-reflected-in-the-practice-completion-view",
+      "title": "Add the same four difficulty options (Easy/Medium/Hard/Math Wizard) to Times Tables Practice, and apply the chosen difficulty to practice configuration (e.g., number of questions and/or question mix). The selected difficulty must be visible during practice and reflected in the practice completion view.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-rewards-system-that-grants-a-fun-sticker-reward-each-time-a-child-completes-a-level-and-display-a-sticker-chart-define-level-completion-for-operations-rounds-as-reaching-the-round-summary-screen-i-e-finishing-a-round-persist-rewards-between-sessions-for-anonymous-users-localstorage-and-keep-the-system-compatible-with-logged-in-users-do-not-break-existing-cloud-progress",
+      "title": "Implement a rewards system that grants a fun sticker reward each time a child completes a level, and display a sticker chart. Define \"level completion\" for Operations rounds as reaching the Round Summary screen (i.e., finishing a round). Persist rewards between sessions for anonymous users (localStorage), and keep the system compatible with logged-in users (do not break existing cloud progress).",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-integrate-generated-sticker-images-as-static-assets-and-use-them-in-the-rewards-ui-round-summary-reward-moment-and-progress-page-sticker-chart-store-generated-images-under-frontend-public-assets-generated-and-reference-them-directly-from-the-frontend",
+      "title": "Integrate generated sticker images as static assets and use them in the rewards UI (Round Summary reward moment and Progress page sticker chart). Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create core math gameplay for ages 5–10 covering addition, subtraction, multiplication, and division",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add times tables learning and practice mode",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Implement age-grouped progression/levels (content organized by age bands within 5–10)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add colorful UI with animated characters to guide and motivate kids",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Include short instructional/help videos to support learning",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Improve startup screen text readability by using a darker, easier-to-read font (increase contrast)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Set app-wide typography to black (high-contrast, easy-to-read) across all screens",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Update the \"First time here\" box/card to use a white background consistent with other UI boxes",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Adjust overall background color palette to bright pastel tones (avoid overly bold/in-your-face colors)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Make Version 4 match Version 3 layout while keeping Version 4 black font styling",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Add a difficulty selector with presets (Easy, Medium, Hard, Math Wizard) for gameplay/practice modes",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add a rewards/progression UI with fun stickers and a chart that awards rewards when levels are completed",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Extend backend progress storage to support recording completed levels and earned sticker rewards for authenticated users, and expose query/mutation methods needed by the frontend to read and update these rewards without breaking existing progress APIs (e.g., getProgressSummary, submitResult). Include the selected difficulty with submitted results so rewards and progress can be tracked by difficulty.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "2d",
+  "projectName": "Kids Math Learning Game (Ages 5–10) with Age Groups, 4 Operations, and Times Tables",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,116 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-add-a-difficulty-selector-with-four-options-easy-medium-hard-and-math-wizard-that-the-child-can-choose-before-starting-an-operations-round-addition-subtraction-multiplication-division-the-selected-difficulty-must-be-clearly-shown-during-gameplay-and-included-in-the-round-result-data-passed-to-the-round-summary-screen",
+      "featureTitle": "Add a difficulty selector with four options — \"Easy\", \"Medium\", \"Hard\", and \"Math Wizard\" — that the child can choose before starting an Operations round (addition/subtraction/multiplication/division). The selected difficulty must be clearly shown during gameplay and included in the round result data passed to the Round Summary screen.",
+      "files": [
+        "frontend/src/components/game/DifficultySelector.tsx",
+        "frontend/src/game/difficulty.ts",
+        "frontend/src/game/types.ts",
+        "frontend/src/pages/ActivitySelectPage.tsx",
+        "frontend/src/pages/play/PlayRoundPage.tsx",
+        "frontend/src/pages/play/RoundSummaryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-17"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-question-generation-and-round-configuration-so-difficulty-meaningfully-changes-gameplay-for-operations-rounds-while-still-respecting-the-existing-age-group-ranges-difficulty-must-be-applied-consistently-across-all-four-operations",
+      "featureTitle": "Update question generation and round configuration so difficulty meaningfully changes gameplay for Operations rounds, while still respecting the existing age-group ranges. Difficulty must be applied consistently across all four operations.",
+      "files": [
+        "frontend/src/game/questionGenerator.ts",
+        "frontend/src/game/roundEngine.ts",
+        "frontend/src/pages/play/PlayRoundPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-18"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-the-same-four-difficulty-options-easy-medium-hard-math-wizard-to-times-tables-practice-and-apply-the-chosen-difficulty-to-practice-configuration-e-g-number-of-questions-and-or-question-mix-the-selected-difficulty-must-be-visible-during-practice-and-reflected-in-the-practice-completion-view",
+      "featureTitle": "Add the same four difficulty options (Easy/Medium/Hard/Math Wizard) to Times Tables Practice, and apply the chosen difficulty to practice configuration (e.g., number of questions and/or question mix). The selected difficulty must be visible during practice and reflected in the practice completion view.",
+      "files": [
+        "frontend/src/components/game/DifficultySelector.tsx",
+        "frontend/src/game/timesTables.ts",
+        "frontend/src/hooks/useTimesTablesPractice.ts",
+        "frontend/src/pages/times-tables/TimesTablesPracticeView.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-19"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-a-rewards-system-that-grants-a-fun-sticker-reward-each-time-a-child-completes-a-level-and-display-a-sticker-chart-define-level-completion-for-operations-rounds-as-reaching-the-round-summary-screen-i-e-finishing-a-round-persist-rewards-between-sessions-for-anonymous-users-localstorage-and-keep-the-system-compatible-with-logged-in-users-do-not-break-existing-cloud-progress",
+      "featureTitle": "Implement a rewards system that grants a fun sticker reward each time a child completes a level, and display a sticker chart. Define \"level completion\" for Operations rounds as reaching the Round Summary screen (i.e., finishing a round). Persist rewards between sessions for anonymous users (localStorage), and keep the system compatible with logged-in users (do not break existing cloud progress).",
+      "files": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/hooks/useStickerRewards.ts",
+        "frontend/src/pages/ProgressPage.tsx",
+        "frontend/src/pages/play/RoundSummaryPage.tsx",
+        "frontend/src/rewards/stickers.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-20"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-integrate-generated-sticker-images-as-static-assets-and-use-them-in-the-rewards-ui-round-summary-reward-moment-and-progress-page-sticker-chart-store-generated-images-under-frontend-public-assets-generated-and-reference-them-directly-from-the-frontend",
+      "featureTitle": "Integrate generated sticker images as static assets and use them in the rewards UI (Round Summary reward moment and Progress page sticker chart). Store generated images under frontend/public/assets/generated and reference them directly from the frontend.",
+      "files": [
+        "frontend/src/pages/ProgressPage.tsx",
+        "frontend/src/pages/play/RoundSummaryPage.tsx",
+        "frontend/src/rewards/stickers.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-22"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
